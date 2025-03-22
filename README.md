@@ -84,6 +84,7 @@
                 </div>
                 <div class="col-lg-12 text-center">
                                 <button type="submit" class="btn btn-block btn-dark">Sign Up</button>
+                               onclick="window.location.href='https://pgecm.in/';">
                             </div>
                             <div class="col-lg-12 text-center">
                             <div class="form-group">
