@@ -99,85 +99,59 @@
                   
                   <button type="submit" class="btn btn-block btn-dark btn-sm my-2" onclick="window.location.href='https://pgecm.in/';">
                   BUY SOURCE CODE </button>
-              <!DOCTYPE html>
-<html>
+              <?php
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "your_database_name";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // Get user inputs from the form
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+
+  // Hash the password for security
+  $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+  // SQL query to insert data into the database
+  $sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$hashed_password')";
+
+  if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+  } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }
+}
+
+$conn->close();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>SIGN UP</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Signup</title>
 </head>
 <body>
-     <form action="signup-check.php" method="post">
-     	<h2>SIGN UP</h2>
-     	<?php if (isset($_GET['error'])) { ?>
-     		<p class="error"><?php echo $_GET['error']; ?></p>
-     	<?php } ?>
 
-          <?php if (isset($_GET['success'])) { ?>
-               <p class="success"><?php echo $_GET['success']; ?></p>
-          <?php } ?>
+<h2>Signup Form</h2>
+<form method="post" action="signup.php">
+    Name: <input type="text" name="name" required><br><br>
+    Email: <input type="email" name="email" required><br><br>
+    Password: <input type="password" name="password" required><br><br>
+    <input type="submit" value="Signup">
+</form>
 
-          <label>Name</label>
-          <?php if (isset($_GET['name'])) { ?>
-               <input type="text" 
-                      name="name" 
-                      placeholder="Name"
-                      value="<?php echo $_GET['name']; ?>"><br>
-          <?php }else{ ?>
-               <input type="text" 
-                      name="name" 
-                      placeholder="Name"><br>
-          <?php }?>
-
-          <label>User Name</label>
-          <?php if (isset($_GET['uname'])) { ?>
-               <input type="text" 
-                      name="uname" 
-                      placeholder="User Name"
-                      value="<?php echo $_GET['uname']; ?>"><br>
-          <?php }else{ ?>
-               <input type="text" 
-                      name="uname" 
-                      placeholder="User Name"><br>
-          <?php }?>
-
-
-     	<label>Password</label>
-     	<input type="password" 
-                 name="password" 
-                 placeholder="Password"><br>
-
-          <label>Re Password</label>
-          <input type="password" 
-                 name="re_password" 
-                 placeholder="Re_Password"><br>
-
-     	<button type="submit">Sign Up</button>
-          <a href="index.php" class="ca">Already have an account?</a>
-     </form>
 </body>
 </html>
-                      
-                                                 </div>
-                                  </div>
-              
-
-        </form>
-       
-
-
-
-
-
-<!-- ============================================================== -->
-<!-- All Required js -->
-<!-- ============================================================== -->
-<script src="assets/libs/jquery/dist/jquery.min.js "></script>
-<!-- Bootstrap tether Core JavaScript -->
-<script src="/assets/libs/popper.js/dist/umd/popper.min.js "></script>
-<script src="/assets/libs/bootstrap/dist/js/bootstrap.min.js "></script>
-<!-- ============================================================== -->
-<!-- This page plugin js -->
-<!-- ============================================================== -->
-<script>
-    $(".preloader ").fadeOut();
-</script>
