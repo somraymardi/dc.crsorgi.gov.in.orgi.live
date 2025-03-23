@@ -25,6 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <form action="register.php" method="POST">
         <h2>Register</h2>
+        <!-- Success message will appear here -->
+        <h2 id="form-message"></h2>
         <input type="text" name="name" placeholder="Full Name" required>
         <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Password" required>
